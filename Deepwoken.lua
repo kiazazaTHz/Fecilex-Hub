@@ -782,7 +782,7 @@ game:GetService("RunService").RenderStepped:Connect(function()
         if Var["ESP_toggle"] then
             for i,v in pairs (game:GetService("Workspace"):WaitForChild("Live"):GetChildren()) do
                 if v.Name:find(".", 1, true) ~= 1 then
-                    --
+                    -- playerESP-Name
                     if v.Name ~= game:GetService("Players").LocalPlayer.Name and v:FindFirstChild("Head") and v.Head:FindFirstChild("playerESP-Name")==nil  then
                         local ESPClone = playerESP_Name_playerESPName:Clone()
                         ESPClone:WaitForChild("Name").Text = v.Humanoid:GetAttribute("CharacterName") .. " (" ..v.Name.. ")"
@@ -799,6 +799,11 @@ game:GetService("RunService").RenderStepped:Connect(function()
                         ESPPL.Health_Val.Text = math.floor(pl_cur_health).."/"..math.floor(pl_max_health)
                         ESPPL.Armor_Val.Text = math.floor(pl_cur_armor).."/"..math.floor(pl_max_armor)
                         ESPPL.Ether_Val.Text = math.floor(pl_cur_ether).."/"..math.floor(pl_max_ether)
+                        if v:FindFirstChild("HumanoidRootPart") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                            ESPPL.Frame.Distance.Text = string.format("%.2f",(v:FindFirstChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position).magnitude)
+                        else
+                            ESPPL.Frame.Distance.Text = "n/a"
+                        end
                     end
 
                     -- playerESP-Stats
