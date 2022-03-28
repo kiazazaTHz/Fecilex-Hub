@@ -21,25 +21,28 @@ Config = {
         },
 
         Group = {
-            ["ESP Settings"] = {
+            ["Player ESP Settings"] = {
 
                 Function = {
-
-                    ["Toggle ESP"] = {
+                    ["Enable"] = {
                         Type = 1,
-                        Var = "ESP_toggle",
+                        Var = "ESP_Player_toggle",
+                    },
+                    ["Status Bar"] = {
+                        Type = 1,
+                        Var = "ESP_Player_StatsBar",
                     },
 
                 }
 
             },
-            ["Player ESP Settings"] = {
+            ["Mobs ESP Settings"] = {
 
                 Function = {
 
-                    ["Status Bar"] = {
+                    ["Enable"] = {
                         Type = 1,
-                        Var = "ESP_Player_StatsBar",
+                        Var = "ESP_Mobs_toggle",
                     },
 
                 }
@@ -54,8 +57,9 @@ Config = {
 -- Var
 
 Var = {
-    ["ESP_toggle"] = false,
+    ["ESP_Player_toggle"] = false,
     ["ESP_Player_StatsBar"] = false,
+    ["ESP_Mobs_toggle"] = false
 }
 
 
@@ -363,6 +367,79 @@ UIListLayout_3.Parent = Category_Zone
 UIListLayout_3.HorizontalAlignment = Enum.HorizontalAlignment.Center
 UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
 
+
+-- Alert Ui
+
+local Alert = Instance.new("Frame")
+local Alert_TextZone = Instance.new("Frame")
+local Alert_warning = Instance.new("ImageButton")
+local Alert_UIPadding = Instance.new("UIPadding")
+local Alert_UIGradient = Instance.new("UIGradient")
+local Alert_Message = Instance.new("TextLabel")
+local Alert_Anim = Instance.new("Frame")
+
+Alert.Name = "Alert"
+Alert.Parent = FECILEXHUB
+Alert.AnchorPoint = Vector2.new(0.5, 0)
+Alert.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Alert.BackgroundTransparency = 1.000
+Alert.BorderSizePixel = 0
+Alert.Position = UDim2.new(0.5, 0, 0, 100)
+Alert.Size = UDim2.new(0, 600, 0, 50)
+
+Alert_TextZone.Name = "Alert_TextZone"
+Alert_TextZone.Parent = Alert
+Alert_TextZone.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Alert_TextZone.BorderSizePixel = 0
+Alert_TextZone.Size = UDim2.new(1, 0, 1, 0)
+
+Alert_warning.Name = "Alert_warning"
+Alert_warning.Parent = Alert_TextZone
+Alert_warning.AnchorPoint = Vector2.new(0, 0.5)
+Alert_warning.BackgroundTransparency = 1.000
+Alert_warning.LayoutOrder = 6
+Alert_warning.Position = UDim2.new(0, 0, 0.5, 0)
+Alert_warning.Size = UDim2.new(0.699999988, 0, 0.699999988, 0)
+Alert_warning.SizeConstraint = Enum.SizeConstraint.RelativeYY
+Alert_warning.ZIndex = 2
+Alert_warning.Image = "rbxassetid://3926305904"
+Alert_warning.ImageColor3 = Color3.fromRGB(255, 30, 33)
+Alert_warning.ImageRectOffset = Vector2.new(364, 324)
+Alert_warning.ImageRectSize = Vector2.new(36, 36)
+
+Alert_UIPadding.Name = "Alert_UIPadding"
+Alert_UIPadding.Parent = Alert_TextZone
+Alert_UIPadding.PaddingLeft = UDim.new(0, 10)
+Alert_UIPadding.PaddingRight = UDim.new(0, 10)
+
+Alert_UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 0, 0)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 0))}
+Alert_UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 1.00), NumberSequenceKeypoint.new(0.10, 0.60), NumberSequenceKeypoint.new(0.90, 0.60), NumberSequenceKeypoint.new(1.00, 1.00)}
+Alert_UIGradient.Name = "Alert_UIGradient"
+Alert_UIGradient.Parent = Alert_TextZone
+
+Alert_Message.Name = "Alert_Message"
+Alert_Message.Parent = Alert_TextZone
+Alert_Message.AnchorPoint = Vector2.new(0.5, 0.5)
+Alert_Message.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Alert_Message.BackgroundTransparency = 1.000
+Alert_Message.BorderSizePixel = 0
+Alert_Message.Position = UDim2.new(0.5, 0, 0.5, 0)
+Alert_Message.Size = UDim2.new(0.800000012, 0, 0.600000024, 0)
+Alert_Message.Font = Enum.Font.GothamBold
+Alert_Message.Text = "Moderator is on this server."
+Alert_Message.TextColor3 = Color3.fromRGB(255, 30, 33)
+Alert_Message.TextScaled = true
+Alert_Message.TextSize = 14.000
+Alert_Message.TextStrokeTransparency = 0.800
+Alert_Message.TextWrapped = true
+
+Alert_Anim.Name = "Alert_Anim"
+Alert_Anim.Parent = Alert
+Alert_Anim.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Alert_Anim.BorderSizePixel = 0
+Alert_Anim.Size = UDim2.new(0, 0, 1, 0)
+
+
 -- Scripts:
 
 local function Drag() -- DragZone.Drag 
@@ -655,6 +732,112 @@ playerESP_Name_Distance.TextSize = 14.000
 playerESP_Name_Distance.TextStrokeTransparency = 0.800
 playerESP_Name_Distance.TextWrapped = true
 
+-- mobsESP
+
+-- Instances:
+
+local mobsESP = Instance.new("BillboardGui")
+local mobsESP_Health_Val = Instance.new("TextLabel")
+local mobsESP_Distance = Instance.new("Frame")
+local mobsESP_straighten = Instance.new("ImageButton")
+local mobsESP_Distance_2 = Instance.new("TextLabel")
+local mobsESP_Name = Instance.new("Frame")
+local mobsESP_Name_2 = Instance.new("TextLabel")
+local mobsESP_adb = Instance.new("ImageButton")
+
+--Properties:
+
+mobsESP.Name = "mobsESP"
+mobsESP.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+mobsESP.Active = true
+mobsESP.AlwaysOnTop = true
+mobsESP.Size = UDim2.new(0, 175, 0, 65)
+mobsESP.StudsOffset = Vector3.new(0, 3.799999952316284, 0)
+
+mobsESP_Health_Val.Name = "mobsESP_Health_Val"
+mobsESP_Health_Val.Parent = mobsESP
+mobsESP_Health_Val.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mobsESP_Health_Val.BackgroundTransparency = 1.000
+mobsESP_Health_Val.BorderSizePixel = 0
+mobsESP_Health_Val.Position = UDim2.new(0, 0, 0, 45)
+mobsESP_Health_Val.Size = UDim2.new(1, 0, 0, 20)
+mobsESP_Health_Val.Font = Enum.Font.Ubuntu
+mobsESP_Health_Val.Text = "50/200"
+mobsESP_Health_Val.TextColor3 = Color3.fromRGB(255, 139, 61)
+mobsESP_Health_Val.TextScaled = true
+mobsESP_Health_Val.TextSize = 14.000
+mobsESP_Health_Val.TextStrokeTransparency = 0.800
+mobsESP_Health_Val.TextWrapped = true
+
+mobsESP_Distance.Name = "mobsESP_Distance"
+mobsESP_Distance.Parent = mobsESP
+mobsESP_Distance.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mobsESP_Distance.BackgroundTransparency = 1.000
+mobsESP_Distance.Position = UDim2.new(0, 0, 0, 25)
+mobsESP_Distance.Size = UDim2.new(1, 0, 0, 20)
+
+mobsESP_straighten.Name = "mobsESP_straighten"
+mobsESP_straighten.Parent = mobsESP_Distance
+mobsESP_straighten.AnchorPoint = Vector2.new(0, 0.5)
+mobsESP_straighten.BackgroundTransparency = 1.000
+mobsESP_straighten.Position = UDim2.new(0, 0, 0.5, 0)
+mobsESP_straighten.Size = UDim2.new(1, 0, 1, 0)
+mobsESP_straighten.SizeConstraint = Enum.SizeConstraint.RelativeYY
+mobsESP_straighten.ZIndex = 2
+mobsESP_straighten.Image = "rbxassetid://3926305904"
+mobsESP_straighten.ImageRectOffset = Vector2.new(164, 684)
+mobsESP_straighten.ImageRectSize = Vector2.new(36, 36)
+
+mobsESP_Distance_2.Name = "mobsESP_Distance"
+mobsESP_Distance_2.Parent = mobsESP_Distance
+mobsESP_Distance_2.AnchorPoint = Vector2.new(1, 0.5)
+mobsESP_Distance_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mobsESP_Distance_2.BackgroundTransparency = 1.000
+mobsESP_Distance_2.BorderSizePixel = 0
+mobsESP_Distance_2.Position = UDim2.new(1, 0, 0.5, 0)
+mobsESP_Distance_2.Size = UDim2.new(1, -30, 1, 0)
+mobsESP_Distance_2.Font = Enum.Font.Ubuntu
+mobsESP_Distance_2.Text = "15062066120"
+mobsESP_Distance_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+mobsESP_Distance_2.TextScaled = true
+mobsESP_Distance_2.TextSize = 14.000
+mobsESP_Distance_2.TextStrokeTransparency = 0.800
+mobsESP_Distance_2.TextWrapped = true
+
+mobsESP_Name.Name = "mobsESP_Name"
+mobsESP_Name.Parent = mobsESP
+mobsESP_Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mobsESP_Name.BackgroundTransparency = 1.000
+mobsESP_Name.Size = UDim2.new(1, 0, 0, 25)
+
+mobsESP_Name_2.Name = "mobsESP_Name"
+mobsESP_Name_2.Parent = mobsESP_Name
+mobsESP_Name_2.AnchorPoint = Vector2.new(1, 0.5)
+mobsESP_Name_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mobsESP_Name_2.BackgroundTransparency = 1.000
+mobsESP_Name_2.BorderSizePixel = 0
+mobsESP_Name_2.Position = UDim2.new(1, 0, 0.5, 0)
+mobsESP_Name_2.Size = UDim2.new(1, -30, 1, 0)
+mobsESP_Name_2.Font = Enum.Font.SourceSansBold
+mobsESP_Name_2.Text = "Guard Bladetemple"
+mobsESP_Name_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+mobsESP_Name_2.TextScaled = true
+mobsESP_Name_2.TextSize = 14.000
+mobsESP_Name_2.TextStrokeTransparency = 0.800
+mobsESP_Name_2.TextWrapped = true
+
+mobsESP_adb.Name = "mobsESP_adb"
+mobsESP_adb.Parent = mobsESP_Name
+mobsESP_adb.AnchorPoint = Vector2.new(0, 0.5)
+mobsESP_adb.BackgroundTransparency = 1.000
+mobsESP_adb.LayoutOrder = 4
+mobsESP_adb.Position = UDim2.new(0, 0, 0.5, 0)
+mobsESP_adb.Size = UDim2.new(1, 0, 1, 0)
+mobsESP_adb.SizeConstraint = Enum.SizeConstraint.RelativeYY
+mobsESP_adb.ZIndex = 2
+mobsESP_adb.Image = "rbxassetid://3926307971"
+mobsESP_adb.ImageRectOffset = Vector2.new(164, 4)
+mobsESP_adb.ImageRectSize = Vector2.new(36, 36)
 
 
 
@@ -759,6 +942,7 @@ end
 -- Keyboard Input
 
 local FECILEX_Enabled = true
+local OpenAlert = false
 
 local UserInputService = game:GetService("UserInputService")
 local function Input(input, gameProcessedEvent)
@@ -766,20 +950,80 @@ local function Input(input, gameProcessedEvent)
         FECILEX_Enabled = false
         FECILEXHUB:Destroy()
     elseif UserInputService:IsKeyDown(Enum.KeyCode.RightAlt) and not UserInputService:IsKeyDown(Enum.KeyCode.RightControl) then
-        if FECILEXHUB.Enabled then
-		    FECILEXHUB.Enabled = false
+        if FECILEXHUB.UI.Visible then
+		    FECILEXHUB.UI.Visible = false
         else
-            FECILEXHUB.Enabled = true
+            FECILEXHUB.UI.Visible = true
+        end
+    elseif UserInputService:IsKeyDown(Enum.KeyCode.RightControl) then
+        if OpenAlert then
+            CloseAlertMessage()
+            OpenAlert = false
+        else
+            OpenAlertMessage(game:GetService("Players").LocalPlayer:GetRoleInGroup(5212858) .. " is on this server. (TEST)")
+            OpenAlert = true
         end
 	end
 end
  
 UserInputService.InputBegan:Connect(Input)
 
+-- Alert UI Function
+
+local anim = FECILEXHUB.Alert.Alert_Anim
+local TextZone = FECILEXHUB.Alert.Alert_TextZone
+local AlertBy = nil
+TextZone.Visible = false
+
+
+function OpenAlertMessage(message)
+	TextZone.Alert_Message.Text = message
+	TextZone.Visible = false
+    anim.AnchorPoint = Vector2.new(0,0)
+	anim.Position = UDim2.new(0,0,0,0)
+	anim:TweenSize(UDim2.new(1, 0, 1, 0),Enum.EasingDirection.In,Enum.EasingStyle.Quint,1,false,function()
+		TextZone.Visible = true
+		anim.AnchorPoint = Vector2.new(1,0)
+		anim.Position = UDim2.new(1,0,0,0)
+		anim:TweenSize(UDim2.new(0, 0, 1, 0),Enum.EasingDirection.Out,Enum.EasingStyle.Quint,1,false)
+	end)
+end	
+
+
+function CloseAlertMessage()
+	anim.AnchorPoint = Vector2.new(0,0)
+	anim.Position = UDim2.new(0,0,0,0)
+	anim:TweenSize(UDim2.new(1, 0, 1, 0),Enum.EasingDirection.In,Enum.EasingStyle.Quint,1,false,function()
+		TextZone.Visible = false
+		anim.AnchorPoint = Vector2.new(1,0)
+		anim.Position = UDim2.new(1,0,0,0)
+		anim:TweenSize(UDim2.new(0, 0, 1, 0),Enum.EasingDirection.Out,Enum.EasingStyle.Quint,1,false)
+	end)
+end
+
+-- PlayerAdded
+
+game.Players.PlayerAdded:Connect(function(Player)
+	print("Player : " .. Player.Name .. ", Role : " .. Player:GetRoleInGroup(5212858) .. ", Rank : " .. Player:GetRankInGroup(5212858))
+	if Player:GetRankInGroup(5212858) > 0 and Player:GetRoleInGroup(5212858) ~= "Wave 1" then
+		OpenAlertMessage(Player:GetRoleInGroup(5212858) .. " is on this server.")
+		AlertBy = Player.UserId
+	end
+end)
+
+-- PlayerRemoving
+game.Players.PlayerRemoving:Connect(function(Player)
+	if Player.UserId == AlertBy then
+		CloseAlertMessage()
+	end
+end)
+
 -- LOOP FUNCTION
 game:GetService("RunService").RenderStepped:Connect(function()
     if FECILEX_Enabled then
-        if Var["ESP_toggle"] then
+
+        -- Player ESP Settings
+        if Var["ESP_Player_toggle"] then
             for i,v in pairs (game:GetService("Workspace"):WaitForChild("Live"):GetChildren()) do
                 if v.Name:find(".", 1, true) ~= 1 then
                     -- playerESP-Name
@@ -839,6 +1083,40 @@ game:GetService("RunService").RenderStepped:Connect(function()
                     v.Torso:FindFirstChild("playerESP-Stats"):Destroy()
                 end
             end
+        end
+
+        -- Mobs ESP Settings
+        if Var["ESP_Mobs_toggle"] then
+            for i,v in pairs (game:GetService("Workspace"):WaitForChild("Live"):GetChildren()) do
+                if v.Name:find(".", 1, true) == 1 then
+                    if v:FindFirstChild("mobsESP")==nil and v.PrimaryPart ~= nil then
+
+                        local mob_name = v.Name:gsub("%d+", ""):gsub("%.", ""):gsub("_", " ")
+
+                        local mobsESP_Clone = mobsESP:Clone()
+                        mobsESP_Clone.Parent = v
+                        mobsESP_Clone.mobsESP_Name.mobsESP_Name.Text = mob_name:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
+
+                    elseif v:FindFirstChild("mobsESP")~=nil then
+                        local mobsESP_InModel = v:FindFirstChild("mobsESP")
+
+                        local mobs_max_health = v.Humanoid.MaxHealth
+                        local mobs_cur_health = v.Humanoid.Health
+
+                        mobsESP_InModel.mobsESP_Health_Val.Text = math.floor(mobs_cur_health).."/"..math.floor(mobs_max_health)
+                        mobsESP_InModel.mobsESP_Distance.mobsESP_Distance.Text = string.format("%.2f",(v.PrimaryPart.Position - game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position).magnitude)
+
+                    end
+                end
+            end
+        else
+
+            for i,v in pairs (game:GetService("Workspace"):WaitForChild("Live"):GetChildren()) do
+                if v:FindFirstChild("mobsESP") then
+                    v:FindFirstChild("mobsESP"):Destroy()
+                end
+            end
+
         end
     end
 end)
