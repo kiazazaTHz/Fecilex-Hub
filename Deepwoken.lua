@@ -21,7 +21,7 @@ Config = {
         },
 
         Group = {
-            ["Player ESP Settings"] = {
+            ["Players ESP Settings"] = {
 
                 Function = {
                     ["Enable"] = {
@@ -47,6 +47,30 @@ Config = {
 
                 }
 
+            },
+            ["Chests ESP Settings"] = {
+
+                Function = {
+
+                    ["Enable"] = {
+                        Type = 1,
+                        Var = "ESP_Chests_toggle",
+                    },
+
+                }
+
+            },
+            ["Bags ESP Settings"] = {
+
+                Function = {
+
+                    ["Enable"] = {
+                        Type = 1,
+                        Var = "ESP_Bags_toggle",
+                    },
+
+                }
+
             }
         }
 
@@ -59,7 +83,9 @@ Config = {
 Var = {
     ["ESP_Player_toggle"] = false,
     ["ESP_Player_StatsBar"] = false,
-    ["ESP_Mobs_toggle"] = false
+    ["ESP_Mobs_toggle"] = false,
+    ["ESP_Chests_toggle"] = false,
+    ["ESP_Bags_toggle"] = false,
 }
 
 
